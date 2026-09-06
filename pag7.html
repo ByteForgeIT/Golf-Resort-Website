@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- تحديد ترميز النصوص ليكون UTF-8 لدعم اللغات المختلفة -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- لجعل الصفحة متجاوبة مع أحجام الشاشات -->
+    <title>اتصل بنا</title> <!-- عنوان الصفحة -->
+    <link rel="stylesheet" href="style2.css"> <!-- ربط ملف CSS خارجي لتنسيق الصفحة -->
+
+</head>
+
+<body>
+<div class="container"> <!-- يحتوي على كل عناصر الصفحة في صندوق واحد -->
+    <div class="title">تواصل معنا</div> <!-- عنوان النموذج -->
+    <form action="indx.html"> <!-- بداية النموذج، يتم تحديد الإجراء بـ "#" ليبقى في نفس الصفحة -->
+        <div class="user-datails"> <!-- قسم بيانات المستخدم -->
+            <!-- حقول إدخال بيانات المستخدم -->
+            <div class="input-box">
+                <span class="dqtqils">الاسم الكامل</span> <!-- عنوان الحقل -->
+                <input id="text" type="text" placeholder="Enter your name" required> <!-- حقل إدخال النص، مطلوب -->
+            </div>
+            <div class="input-box">
+                <span class="dqtqils">اسم المستخدم</span>
+                <input id="text" type="text" placeholder="Enter your Username" required>
+            </div>
+            <div class="input-box">
+                <span class="dqtqils">الايميل</span>
+                <input id="text" type="email" placeholder="Enter your email" required> <!-- حقل لإدخال البريد الإلكتروني -->
+            </div>
+            <div class="input-box">
+                <span class="dqtqils">رقم الهاتف</span>
+                <input id="text" type="text" placeholder="Enter your number" required> <!-- حقل لإدخال رقم الهاتف -->
+                
+            </div>
+            <div class="input-box">
+                <span class="dqtqils">كلمة السر</span>
+                <input id="text" type="password" id="password" placeholder="Enter your password" required> <!-- حقل كلمة المرور -->
+                <!--<button type="button" id="togglePassword" class="toggle-password">Show</button> <!-- زر عرض/إخفاء كلمة المرور -->
+            </div>
+            <div class="input-box">
+                <span class="dqtqils">تأكيد كلمة المرور</span>
+                <input id="text"  type="password" id="confirmPassword" placeholder="Confirm your password" required>
+             <!--   <button type="button" id="toggleConfirmPassword" class="toggle-password">Show</button>-->
+            </div>
+        </div>
+        <div class="gender-details"> <!-- قسم اختيار الجنس -->
+            <input type="radio" name="gender" id="dot-1"> <!-- خيار ذكر -->
+            <input type="radio" name="gender" id="dot-2"> <!-- خيار أنثى -->
+            <input type="radio" name="gender" id="dot-3"> <!-- خيار آخر -->
+            <span class="gender-title">الجنس</span>
+            <div class="category">
+                <!-- خيارات اختيار الجنس -->
+                <label for="dot-1">
+                    <span class="dot one"></span>
+                    <span class="gender">ذكر</span>
+                </label>
+                <label for="dot-2">
+                    <span class="dot two"></span>
+                    <span class="gender">انثى</span>
+                </label>
+                <label for="dot-3">
+                    <span class="dot three"></span>
+                    <span class="gender">يفضل عدم القول</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- قسم التعليقات -->
+        <div id="comment-section">
+            <h3>ترك تعليق</h3> <!-- عنوان قسم التعليقات -->
+            <textarea id="commentBox" placeholder="اكتب تعليقك هنا..."></textarea> <!-- مربع إدخال التعليق -->
+            <button type="button" id="addComment">أظف تعليق</button> <!-- زر إضافة التعليق -->
+        </div>
+        
+        <!-- منطقة عرض التعليقات -->
+        <div id="commentsContainer"></div>
+
+        <!-- زر التسجيل -->
+        <div class="button1">
+            <input  type="submit" value="ارسال"> <!-- زر إرسال النموذج -->
+        </div>
+    </form>
+</div>
+
+<script src="j.js"></script> <!-- ربط ملف JavaScript خارجي -->
+<script>
+    // جلب العناصر
+    const addCommentButton = document.getElementById('addComment'); // زر إضافة تعليق
+    const commentBox = document.getElementById('commentBox'); // مربع إدخال التعليقات
+    const commentsContainer = document.getElementById('commentsContainer'); // منطقة عرض التعليقات
+
+    // إضافة تعليق عند النقر على الزر
+    addCommentButton.addEventListener('click', () => {
+        const commentText = commentBox.value.trim(); // جلب النص من مربع التعليق وإزالة الفراغات
+        if (commentText) { // التحقق من وجود نص
+            // إنشاء عنصر جديد للتعليق
+            const comment = document.createElement('div');
+            comment.className = 'comment'; // تعيين فئة CSS للتعليق
+            comment.textContent = commentText; // تعيين النص المدخل
+            commentsContainer.appendChild(comment); // إضافة التعليق إلى منطقة التعليقات
+
+            // مسح مربع النص
+            commentBox.value = '';
+        }
+    });
+//التحقق من الايميل والرقم الهاتف
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector("form");
+        const phoneInput = document.querySelector('input[placeholder="Enter your number"]');
+        const emailInput = document.querySelector('input[placeholder="Enter your email"]');
+
+        form.addEventListener("submit", function(event) {
+            const phoneValue = phoneInput.value.trim();
+            const emailValue = emailInput.value.trim();
+            
+            // التحقق من أن رقم الهاتف يحتوي فقط على أرقام
+            if (!/^\d+$/.test(phoneValue)) {
+                alert("يرجى إدخال رقم هاتف صحيح بدون أحرف أو رموز.");
+                event.preventDefault(); // منع إرسال النموذج إذا كان الإدخال غير صحيح
+                return;
+            }
+
+            // التحقق من صحة البريد الإلكتروني باستخدام regex
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(emailValue)) {
+                alert("يرجى إدخال بريد إلكتروني صالح مثل: example@mail.com");
+                event.preventDefault(); // منع إرسال النموذج إذا كان البريد غير صالح
+                return;
+            }
+        });
+    });
+</script>
+</body>
+</html>
